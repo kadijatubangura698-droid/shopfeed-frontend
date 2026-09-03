@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopFeed</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Top tabs -->
+  <div class="top-bar">
+    <div class="tabs">
+      <span class="tab">Following</span>
+      <span class="tab active">For You</span>
+    </div>
+    <a href="discover.html" class="search-icon">🔍</a>
+  </div>
+
+  <!-- Video feed container -->
+  <div id="feed-container" class="feed-container">
+    <!-- Video cards get inserted here by feed.js -->
+    <p id="loading-msg" class="loading-msg">Loading videos...</p>
+  </div>
+
+  <!-- Bottom navigation -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item active">
+      <span>🏠</span>
+      <p>Home</p>
+    </a>
+    <a href="discover.html" class="nav-item">
+      <span>🧭</span>
+      <p>Discover</p>
+    </a>
+    <a href="upload.html" class="nav-item center-btn">
+      <img src="assets/logo.png" alt="Post" />
+    </a>
+    <a href="inbox.html" class="nav-item">
+      <span>💬</span>
+      <p>Inbox</p>
+    </a>
+    <a href="profile.html" class="nav-item">
+      <span>👤</span>
+      <p>Profile</p>
+    </a>
+  </nav>
+
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
+  <script src="feed.js"></script>
+</body>
+</html>
