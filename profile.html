@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopFeed — Profile</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="profile.css" />
+</head>
+<body class="profile-body">
+
+  <!-- Logged-out state -->
+  <div id="logged-out-view" class="logged-out hidden">
+    <img src="assets/logo.png" class="auth-logo" alt="ShopFeed" />
+    <p>Log in to see your profile, saved items, and listings.</p>
+    <a href="login.html" class="auth-btn profile-login-btn">Log In / Sign Up</a>
+  </div>
+
+  <!-- Logged-in state -->
+  <div id="profile-view" class="hidden">
+
+    <div class="profile-header">
+      <button id="logout-btn" class="icon-btn">⎋</button>
+    </div>
+
+    <div class="profile-top">
+      <div class="profile-avatar" id="profile-avatar"></div>
+      <h2 id="profile-name">—</h2>
+      <p id="profile-handle" class="profile-handle">—</p>
+      <span id="role-badge" class="role-badge"></span>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat">
+        <p id="stat-listings" class="stat-num">0</p>
+        <p class="stat-label" id="stat-listings-label">Listings</p>
+      </div>
+      <div class="stat">
+        <p id="stat-views" class="stat-num">0</p>
+        <p class="stat-label">Views</p>
+      </div>
+      <div class="stat">
+        <p id="stat-likes" class="stat-num">0</p>
+        <p class="stat-label">Likes</p>
+      </div>
+    </div>
+
+    <!-- Buyers see this: upgrade CTA -->
+    <a id="upgrade-cta" href="become-seller.html" class="upgrade-cta hidden">
+      Upgrade to a Business Account →
+    </a>
+
+    <!-- Sellers see this: post button -->
+    <a id="post-cta" href="upload.html" class="upgrade-cta hidden">
+      + Post a New Listing
+    </a>
+
+    <div class="grid-tabs">
+      <span id="tab-listings" class="grid-tab active">Listings</span>
+      <span id="tab-saved" class="grid-tab">Saved</span>
+    </div>
+
+    <div id="listings-grid" class="thumb-grid"></div>
+    <div id="saved-grid" class="thumb-grid hidden"></div>
+    <p id="empty-msg" class="empty-msg hidden">Nothing here yet.</p>
+  </div>
+
+  <!-- Bottom navigation -->
+  <nav class="bottom-nav profile-nav">
+    <a href="index.html" class="nav-item">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 3l9 8h-2v9h-5v-6H10v6H5v-9H3l9-8z"/></svg>
+      <p>Home</p>
+    </a>
+    <a href="discover.html" class="nav-item">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>
+      <p>Discover</p>
+    </a>
+    <a href="upload.html" class="nav-item center-btn">
+      <img src="assets/logo.png" alt="Post" />
+    </a>
+    <a href="inbox.html" class="nav-item">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12c0 4.4-4 8-9 8-1.1 0-2.2-.2-3.2-.5L3 21l1.6-4.8C3.6 14.9 3 13.5 3 12c0-4.4 4-8 9-8s9 3.6 9 8z"/></svg>
+      <p>Inbox</p>
+    </a>
+    <a href="profile.html" class="nav-item active">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+      <p>Profile</p>
+    </a>
+  </nav>
+
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
+  <script src="profile.js"></script>
+</body>
+</html>
