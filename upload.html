@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopFeed — Post a Listing</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="upload.css" />
+</head>
+<body class="upload-body">
+
+  <!-- Not logged in -->
+  <div id="logged-out-view" class="center-msg hidden">
+    <p>Log in to post a listing.</p>
+    <a href="login.html" class="auth-btn upload-cta-btn">Log In / Sign Up</a>
+  </div>
+
+  <!-- Logged in but a buyer, not a business -->
+  <div id="not-business-view" class="center-msg hidden">
+    <p>Only business accounts can post listings.</p>
+    <a href="profile.html" class="auth-btn upload-cta-btn">Upgrade to Business</a>
+  </div>
+
+  <!-- The actual upload form -->
+  <div id="upload-form-view" class="hidden">
+    <div class="upload-header">
+      <a href="profile.html" class="icon-btn">✕</a>
+      <h2>New Listing</h2>
+      <span></span>
+    </div>
+
+    <form id="upload-form">
+
+      <!-- Video picker / preview -->
+      <label class="video-picker" id="video-picker-label">
+        <video id="video-preview" class="hidden" muted playsinline controls></video>
+        <div id="video-picker-placeholder" class="video-picker-placeholder">
+          <span class="video-picker-icon">🎥</span>
+          <p>Tap to record or select a video</p>
+          <p class="video-picker-hint">Max 15 seconds</p>
+        </div>
+        <input type="file" id="video-input" accept="video/*" capture="environment" required />
+      </label>
+      <p id="video-error" class="auth-error"></p>
+
+      <label class="form-label">Title</label>
+      <input type="text" id="title-input" class="form-input" placeholder="e.g. Patterned Ankara Dress" required />
+
+      <label class="form-label">Category</label>
+      <select id="category-input" class="form-input" required>
+        <option value="">Select a category</option>
+        <option value="Fashion">Fashion</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Vehicles">Vehicles</option>
+        <option value="Beauty">Beauty</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label class="form-label">Price (SLE)</label>
+      <input type="number" id="price-input" class="form-input" placeholder="e.g. 250" min="0" required />
+
+      <label class="form-label">Location</label>
+      <input type="text" id="location-input" class="form-input" placeholder="e.g. Freetown" required />
+
+      <label class="form-label">WhatsApp Number</label>
+      <div class="phone-input-row">
+        <span class="phone-prefix">+232</span>
+        <input type="tel" id="whatsapp-input" placeholder="XXXXXXXX" maxlength="9" required />
+      </div>
+
+      <div class="boost-toggle-row">
+        <div>
+          <p class="boost-title">Boost This Listing</p>
+          <p class="boost-subtitle">Show up first in the feed</p>
+        </div>
+        <input type="checkbox" id="boost-checkbox" />
+      </div>
+
+      <div id="boost-options" class="boost-options hidden">
+        <select id="boost-duration" class="form-input">
+          <option value="24h">24 hours — SLE 30</option>
+          <option value="3d">3 days — SLE 60</option>
+          <option value="7d">7 days — SLE 100</option>
+        </select>
+        <select id="boost-provider" class="form-input">
+          <option value="orange_money">Orange Money</option>
+          <option value="africell_money">Africell Money</option>
+        </select>
+      </div>
+
+      <button type="submit" id="publish-btn" class="auth-btn publish-btn">Publish</button>
+      <p id="upload-status" class="auth-status"></p>
+      <p id="upload-error" class="auth-error"></p>
+    </form>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
+  <script src="upload.js"></script>
+</body>
+</html>
