@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopFeed — Log In</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body class="auth-body">
+
+  <div class="auth-card">
+    <img src="assets/logo.png" class="auth-logo" alt="ShopFeed" />
+    <h1>Welcome to ShopFeed</h1>
+    <p class="auth-subtitle">Buy and sell with a swipe.</p>
+
+    <!-- Step 1: enter phone number -->
+    <div id="phone-step">
+      <label class="auth-label">Phone Number</label>
+      <div class="phone-input-row">
+        <span class="phone-prefix">+232</span>
+        <input id="phone-input" type="tel" placeholder="XXXXXXXX" maxlength="9" />
+      </div>
+      <button id="send-otp-btn" class="auth-btn">Send Code</button>
+      <p id="phone-error" class="auth-error"></p>
+    </div>
+
+    <!-- Step 2: enter the OTP code (hidden until code is sent) -->
+    <div id="otp-step" class="hidden">
+      <label class="auth-label">Enter the code sent to your phone</label>
+      <input id="otp-input" type="text" inputmode="numeric" placeholder="123456" maxlength="6" />
+      <button id="verify-otp-btn" class="auth-btn">Verify & Continue</button>
+      <p id="otp-error" class="auth-error"></p>
+      <button id="back-btn" class="auth-link">← Change number</button>
+    </div>
+
+    <!-- Step 3: first-time users pick a role -->
+    <div id="role-step" class="hidden">
+      <label class="auth-label">How will you use ShopFeed?</label>
+      <button class="role-btn" data-role="buyer">🛍️ I'm here to Buy</button>
+      <button class="role-btn" data-role="business">🏪 I'm here to Sell</button>
+    </div>
+
+    <p id="status-msg" class="auth-status"></p>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>
