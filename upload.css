@@ -1,0 +1,146 @@
+/* ============================================================================
+   SHOPFEED — UPLOAD PAGE STYLES
+   ============================================================================ */
+
+.upload-body {
+  overflow-y: auto;
+  height: auto;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+.center-msg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 16px;
+  text-align: center;
+  padding: 24px;
+}
+
+.upload-cta-btn {
+  display: inline-block;
+  width: auto;
+  padding: 12px 28px;
+  text-decoration: none;
+}
+
+.upload-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+}
+
+.upload-header h2 {
+  font-size: 17px;
+}
+
+#upload-form {
+  padding: 0 20px;
+}
+
+.video-picker {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 12;
+  max-height: 320px;
+  background: #111;
+  border: 1px dashed #333;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.video-picker video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-picker-placeholder {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  text-align: center;
+  gap: 4px;
+}
+
+.video-picker-icon {
+  font-size: 32px;
+  margin-bottom: 6px;
+}
+
+.video-picker-hint {
+  font-size: 12px;
+  color: #555;
+}
+
+#video-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  color: #ccc;
+  margin: 16px 0 6px;
+}
+
+.form-input {
+  width: 100%;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 12px;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+}
+
+.boost-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 14px;
+  margin-top: 20px;
+}
+
+.boost-title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.boost-subtitle {
+  font-size: 12px;
+  color: #888;
+}
+
+.boost-toggle-row input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  accent-color: #25F4EE;
+}
+
+.boost-options {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.publish-btn {
+  margin-top: 24px;
+}
