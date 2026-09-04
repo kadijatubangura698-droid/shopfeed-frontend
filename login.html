@@ -14,20 +14,17 @@
     <h1>Welcome to ShopFeed</h1>
     <p class="auth-subtitle">Buy and sell with a swipe.</p>
 
-    <!-- Step 1: enter phone number -->
+    <!-- Step 1: enter email -->
     <div id="phone-step">
-      <label class="auth-label">Phone Number</label>
-      <div class="phone-input-row">
-        <span class="phone-prefix">+232</span>
-        <input id="phone-input" type="tel" placeholder="XXXXXXXX" maxlength="9" />
-      </div>
+      <label class="auth-label">Email Address</label>
+      <input id="phone-input" type="email" placeholder="you@example.com" class="form-input" />
       <button id="send-otp-btn" class="auth-btn">Send Code</button>
       <p id="phone-error" class="auth-error"></p>
     </div>
 
     <!-- Step 2: enter the OTP code (hidden until code is sent) -->
     <div id="otp-step" class="hidden">
-      <label class="auth-label">Enter the code sent to your phone</label>
+      <label class="auth-label">Enter the code emailed to you</label>
       <input id="otp-input" type="text" inputmode="numeric" placeholder="123456" maxlength="6" />
       <button id="verify-otp-btn" class="auth-btn">Verify & Continue</button>
       <p id="otp-error" class="auth-error"></p>
