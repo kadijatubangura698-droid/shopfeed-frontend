@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopFeed — Chat</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="chat.css" />
+</head>
+<body class="chat-body">
+
+  <div class="chat-header">
+    <a href="inbox.html" class="icon-btn">←</a>
+    <p id="chat-title">Chat</p>
+    <span></span>
+  </div>
+
+  <div id="pinned-product" class="pinned-product hidden">
+    <img id="pinned-thumb" src="" alt="" />
+    <div class="pinned-info">
+      <p id="pinned-title"></p>
+      <p id="pinned-price"></p>
+    </div>
+  </div>
+
+  <div id="messages-list" class="messages-list"></div>
+
+  <form id="message-form" class="message-form">
+    <input id="message-input" type="text" placeholder="Type a message..." autocomplete="off" required />
+    <button type="submit">➤</button>
+  </form>
+
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
+  <script src="chat.js"></script>
+</body>
+</html>
