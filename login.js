@@ -14,27 +14,27 @@ const statusMsg = document.getElementById("status-msg");
 const phoneInput = document.getElementById("phone-input");
 const otpInput = document.getElementById("otp-input");
 
-let fullPhoneNumber = "";
+let userEmail = "";
 
 // ---- Step 1: request OTP ----
 document.getElementById("send-otp-btn").addEventListener("click", async () => {
   const errorEl = document.getElementById("phone-error");
   errorEl.textContent = "";
 
-  const digits = phoneInput.value.trim();
-  if (!/^\d{8,9}$/.test(digits)) {
-    errorEl.textContent = "Enter a valid Sierra Leone number.";
+  const email = phoneInput.value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errorEl.textContent = "Enter a valid email address.";
     return;
   }
 
-  fullPhoneNumber = `+232${digits}`;
+  userEmail = email;
   setStatus("Sending code...");
 
   try {
     const res = await fetch(`${API_BASE_URL}/auth/otp/request`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ phone: fullPhoneNumber }),
+      body: JSON.stringify({ email: userEmail }),
     });
     const data = await res.json();
 
@@ -70,7 +70,7 @@ document.getElementById("verify-otp-btn").addEventListener("click", async () => 
     const res = await fetch(`${API_BASE_URL}/auth/otp/verify`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ phone: fullPhoneNumber, code }),
+      body: JSON.stringify({ email: userEmail, code }),
     });
     const data = await res.json();
 
