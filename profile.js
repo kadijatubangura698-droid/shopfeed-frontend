@@ -40,9 +40,9 @@ async function initProfile() {
 }
 
 function renderUser(user) {
-  const name = user.display_name || `+232 ${user.phone.slice(4)}`;
+  const name = user.display_name || (user.email ? user.email.split("@")[0] : "ShopFeed User");
   document.getElementById("profile-name").textContent = name;
-  document.getElementById("profile-handle").textContent = user.phone;
+  document.getElementById("profile-handle").textContent = user.email || user.phone || "";
 
   const avatar = document.getElementById("profile-avatar");
   avatar.textContent = name.charAt(0).toUpperCase();
