@@ -39,9 +39,7 @@ document.getElementById("send-otp-btn").addEventListener("click", async () => {
     const data = await res.json();
 
     if (!res.ok) {
-      errorEl.textContent = data.error === "too_many_otp_requests"
-        ? "Too many attempts. Try again in a few minutes."
-        : "Couldn't send code. Check the number and try again.";
+      errorEl.textContent = `Server error: ${data.error || res.status}`;
       setStatus("");
       return;
     }
@@ -50,7 +48,7 @@ document.getElementById("send-otp-btn").addEventListener("click", async () => {
     phoneStep.classList.add("hidden");
     otpStep.classList.remove("hidden");
   } catch (err) {
-    errorEl.textContent = "Network error — check your connection.";
+    errorEl.textContent = `Network error: ${err.message}`;
     setStatus("");
   }
 });
