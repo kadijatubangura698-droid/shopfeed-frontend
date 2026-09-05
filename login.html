@@ -11,27 +11,26 @@
 
   <div class="auth-card">
     <img src="assets/logo.png" class="auth-logo" alt="ShopFeed" />
-    <h1>Welcome to ShopFeed</h1>
-    <p class="auth-subtitle">Buy and sell with a swipe.</p>
+    <h1 id="auth-title">Welcome to ShopFeed</h1>
+    <p class="auth-subtitle" id="auth-subtitle">Log in to continue</p>
 
-    <!-- Step 1: enter email -->
-    <div id="phone-step">
-      <label class="auth-label">Email Address</label>
-      <input id="phone-input" type="email" placeholder="you@example.com" class="form-input" />
-      <button id="send-otp-btn" class="auth-btn">Send Code</button>
-      <p id="phone-error" class="auth-error"></p>
-    </div>
+    <form id="auth-form">
+      <label class="auth-label">Email</label>
+      <input id="email-input" type="email" class="form-input" placeholder="you@example.com" required />
 
-    <!-- Step 2: enter the OTP code (hidden until code is sent) -->
-    <div id="otp-step" class="hidden">
-      <label class="auth-label">Enter the code emailed to you</label>
-      <input id="otp-input" type="text" inputmode="numeric" placeholder="123456" maxlength="6" />
-      <button id="verify-otp-btn" class="auth-btn">Verify & Continue</button>
-      <p id="otp-error" class="auth-error"></p>
-      <button id="back-btn" class="auth-link">← Change number</button>
-    </div>
+      <label class="auth-label">Password</label>
+      <input id="password-input" type="password" class="form-input" placeholder="••••••••" minlength="6" required />
 
-    <!-- Step 3: first-time users pick a role -->
+      <button type="submit" id="submit-btn" class="auth-btn">Log In</button>
+      <p id="auth-error" class="auth-error"></p>
+    </form>
+
+    <p class="toggle-row">
+      <span id="toggle-text">Don't have an account?</span>
+      <button id="toggle-btn" class="auth-link-inline">Sign up</button>
+    </p>
+
+    <!-- First-time signup only: pick a role -->
     <div id="role-step" class="hidden">
       <label class="auth-label">How will you use ShopFeed?</label>
       <button class="role-btn" data-role="buyer">🛍️ I'm here to Buy</button>
