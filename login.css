@@ -143,3 +143,19 @@
 .hidden {
   display: none;
 }
+
+.toggle-row {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #888;
+}
+
+.auth-link-inline {
+  background: none;
+  border: none;
+  color: #25F4EE;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  margin-left: 4px;
+}
