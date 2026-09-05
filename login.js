@@ -1,105 +1,96 @@
 // ============================================================================
-// SHOPFEED — LOGIN LOGIC
-// Phone + OTP flow, fully driven by the backend:
-//   /auth/otp/request  -> sends SMS code
-//   /auth/otp/verify   -> confirms code, returns a login token
-//   /auth/role         -> sets buyer or business on first login
+// SHOPFEED — LOGIN / SIGNUP LOGIC
+// Plain email + password, calling:
+//   POST /auth/signup  -> create account (first time)
+//   POST /auth/login   -> log in (returning users)
+//   POST /auth/role    -> set buyer/business after signup
 // ============================================================================
 
-const phoneStep = document.getElementById("phone-step");
-const otpStep = document.getElementById("otp-step");
+const authForm = document.getElementById("auth-form");
+const authTitle = document.getElementById("auth-title");
+const authSubtitle = document.getElementById("auth-subtitle");
+const submitBtn = document.getElementById("submit-btn");
+const toggleText = document.getElementById("toggle-text");
+const toggleBtn = document.getElementById("toggle-btn");
+const errorEl = document.getElementById("auth-error");
+const statusEl = document.getElementById("status-msg");
 const roleStep = document.getElementById("role-step");
-const statusMsg = document.getElementById("status-msg");
 
-const phoneInput = document.getElementById("phone-input");
-const otpInput = document.getElementById("otp-input");
+let mode = "login"; // or "signup"
 
-let userEmail = "";
+if (isLoggedIn()) {
+  window.location.href = "index.html";
+}
 
-// ---- Step 1: request OTP ----
-document.getElementById("send-otp-btn").addEventListener("click", async () => {
-  const errorEl = document.getElementById("phone-error");
-  errorEl.textContent = "";
-
-  const email = phoneInput.value.trim();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    errorEl.textContent = "Enter a valid email address.";
-    return;
-  }
-
-  userEmail = email;
-  setStatus("Sending code...");
-
-  try {
-    const res = await fetch(`${API_BASE_URL}/auth/otp/request`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: userEmail }),
-    });
-    const data = await res.json();
-
-    if (!res.ok) {
-      errorEl.textContent = `Server error: ${data.error || res.status}`;
-      setStatus("");
-      return;
-    }
-
-    setStatus("");
-    phoneStep.classList.add("hidden");
-    otpStep.classList.remove("hidden");
-  } catch (err) {
-    errorEl.textContent = `Network error: ${err.message}`;
-    setStatus("");
-  }
+toggleBtn.addEventListener("click", () => {
+  mode = mode === "login" ? "signup" : "login";
+  updateModeUI();
 });
 
-// ---- Step 2: verify OTP ----
-document.getElementById("verify-otp-btn").addEventListener("click", async () => {
-  const errorEl = document.getElementById("otp-error");
+function updateModeUI() {
+  errorEl.textContent = "";
+  if (mode === "login") {
+    authTitle.textContent = "Welcome back";
+    authSubtitle.textContent = "Log in to continue";
+    submitBtn.textContent = "Log In";
+    toggleText.textContent = "Don't have an account?";
+    toggleBtn.textContent = "Sign up";
+  } else {
+    authTitle.textContent = "Create your account";
+    authSubtitle.textContent = "Buy and sell with a swipe.";
+    submitBtn.textContent = "Sign Up";
+    toggleText.textContent = "Already have an account?";
+    toggleBtn.textContent = "Log in";
+  }
+}
+
+authForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
   errorEl.textContent = "";
 
-  const code = otpInput.value.trim();
-  if (!/^\d{4,6}$/.test(code)) {
-    errorEl.textContent = "Enter the code you received.";
-    return;
-  }
+  const email = document.getElementById("email-input").value.trim();
+  const password = document.getElementById("password-input").value;
 
-  setStatus("Verifying...");
+  submitBtn.disabled = true;
+  statusEl.textContent = mode === "login" ? "Logging in..." : "Creating your account...";
 
   try {
-    const res = await fetch(`${API_BASE_URL}/auth/otp/verify`, {
+    const endpoint = mode === "login" ? "/auth/login" : "/auth/signup";
+    const res = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: userEmail, code }),
+      body: JSON.stringify({ email, password }),
     });
     const data = await res.json();
 
     if (!res.ok) {
-      errorEl.textContent = "Incorrect code. Try again.";
-      setStatus("");
+      errorEl.textContent = describeError(data.error);
+      statusEl.textContent = "";
+      submitBtn.disabled = false;
       return;
     }
 
     saveToken(data.token, data.user);
-    setStatus("");
+    statusEl.textContent = "";
 
     if (data.is_new_user) {
-      otpStep.classList.add("hidden");
+      authForm.classList.add("hidden");
+      document.querySelector(".toggle-row").classList.add("hidden");
       roleStep.classList.remove("hidden");
     } else {
       goHome();
     }
   } catch (err) {
-    errorEl.textContent = "Network error — check your connection.";
-    setStatus("");
+    errorEl.textContent = `Network error: ${err.message}`;
+    statusEl.textContent = "";
+    submitBtn.disabled = false;
   }
 });
 
-// ---- Step 3: pick buyer or business (first-time users only) ----
 document.querySelectorAll(".role-btn").forEach((btn) => {
   btn.addEventListener("click", async () => {
     const role = btn.dataset.role;
-    setStatus("Setting up your account...");
+    statusEl.textContent = "Setting up your account...";
 
     try {
       const res = await fetch(`${API_BASE_URL}/auth/role`, {
@@ -115,28 +106,27 @@ document.querySelectorAll(".role-btn").forEach((btn) => {
         saveToken(getToken(), data.user);
         goHome();
       } else {
-        setStatus("Something went wrong. Try again.");
+        statusEl.textContent = "Something went wrong. Try again.";
       }
     } catch (err) {
-      setStatus("Network error — check your connection.");
+      statusEl.textContent = "Network error — check your connection.";
     }
   });
 });
 
-document.getElementById("back-btn").addEventListener("click", () => {
-  otpStep.classList.add("hidden");
-  phoneStep.classList.remove("hidden");
-});
-
-function setStatus(msg) {
-  statusMsg.textContent = msg;
+function describeError(code) {
+  switch (code) {
+    case "email_taken": return "That email is already registered — try logging in instead.";
+    case "weak_password": return "Password must be at least 6 characters.";
+    case "invalid_email": return "Enter a valid email address.";
+    case "invalid_credentials": return "Incorrect email or password.";
+    case "too_many_attempts": return "Too many attempts. Wait a few minutes.";
+    default: return `Something went wrong (${code || "unknown error"}).`;
+  }
 }
 
 function goHome() {
   window.location.href = "index.html";
 }
 
-// If already logged in, skip straight home
-if (isLoggedIn()) {
-  goHome();
-}
+updateModeUI();
